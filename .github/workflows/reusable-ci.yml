@@ -1,0 +1,25 @@
+name: Reusable Infra Logic
+
+# 1. This tells GitHub: "I am a library function, waiting to be called."
+on:
+  workflow_call:
+    inputs:
+      who_is_calling:
+        required: true
+        type: string
+
+jobs:
+  fake-gpu-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Acknowledge Call
+        run: |
+          echo "Ring Ring! Hello?"
+          echo "Oh, hi ${{ inputs.who_is_calling }}!"
+          echo "I am running inside 'playground-infra', but I am working for you."
+
+      - name: Simulate Heavy Work
+        run: |
+          echo "Starting fake GPU benchmark..."
+          sleep 5
+          echo "Benchmark Complete! ✅"
